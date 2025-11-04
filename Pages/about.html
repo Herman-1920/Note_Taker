@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About | NoteTaker</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Navbar styling */
+    .navbar {
+      background-color: #198754; /* Same green as footer */
+      border-bottom: 2px solid #145c32; /* Slightly darker green for bottom border */
+    }
+
+    .navbar-brand,
+    .navbar-nav .nav-link {
+      color: white !important; /* White text for contrast */
+    }
+
+    .navbar-nav .nav-link.active {
+      font-weight: bold;
+      text-decoration: underline;
+      color: #d4f0d4 !important; /* Lighter green for active link */
+    }
+
+    .navbar .btn-outline-success {
+      border: 2px solid white;
+      color: white;
+      background-color: transparent;
+    }
+
+    .navbar .btn-outline-success:hover {
+      background-color: white;
+      color: #198754;
+    }
+
+    /* Body & layout */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    main {
+      flex: 1; /* Main content grows, footer stays at bottom */
+    }
+
+    /* Footer styling */
+    footer {
+      background-color: #198754;
+      color: white;
+      padding: 1.5rem 0;
+    }
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+      color: #d4f0d4;
+    }
+
+    /* Image hover effect for team members */
+    .hover-expand {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .hover-expand:hover {
+      transform: scale(1.15);
+      box-shadow: 0 8px 20px rgba(0, 128, 0, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand mx-3" href="/">NoteTaker</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto d-flex flex-row">
+        <li class="nav-item mx-2"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item mx-2"><a class="nav-link" href="/mynote">Mynote</a></li>
+        <li class="nav-item mx-2"><a class="nav-link active" href="/about">About</a></li>
+      </ul>
+      <div class="d-flex" id="authbutton"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- Navbar login/signup script -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function updateNav() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const authbutton = document.getElementById('authbutton');
+
+    if(user) {
+      // If user is logged in, show greeting and logout
+      authbutton.innerHTML = `
+        <span class="me-2 text-white fw-semibold">Hi, ${user.username || user.email}</span>
+        <button class="btn btn-outline-danger mx-2" id="logoutbtn">Logout</button>
+      `;
+      document.getElementById('logoutbtn').addEventListener('click', () => {
+        localStorage.removeItem('user');
+        window.location.href = '/';
+      });
+    } else {
+      // If not logged in, show login/signup buttons
+      authbutton.innerHTML = `
+        <a href="/login"><button class="btn btn-outline-success mx-2" type="button">Login</button></a>
+        <a href="/signup"><button class="btn btn-outline-success mx-2" type="button">Signup</button></a>
+      `;
+    }
+  }
+  updateNav();
+</script>
+
+<!-- Main content -->
+<div class="container flex-grow-1 mt-4">
+
+  <!-- About Section -->
+  <section class="py-5">
+    <div class="row justify-content-center">
+      <div class="card shadow p-4 mx-auto" style="max-width: 900px;">
+        <h2 class="mb-3">About NoteTaker</h2>
+        <p>NoteTaker is your personal note-taking companion. Capture your ideas, organize tasks, and keep everything in one place.</p>
+        <p>With NoteTaker, you can create, edit, and manage notes effortlessly. The app is designed to be intuitive and user-friendly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="py-5 bg-light">
+    <h2 class="text-center mb-5">Our Team</h2>
+    <div class="row justify-content-center">
+      
+      <!-- Team member card template -->
+      <div class="col-md-3 col-sm-6 mb-4 text-center">
+        <div class="card border-0 shadow-sm">
+          <div class="overflow-hidden">
+            <img src="/images/hamim.jpeg" class="img-fluid rounded hover-expand" alt="Developer 1">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Sayeed Al Mahi Chowdhury</h5>
+            <p class="card-text">Ahonar gandu</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4 text-center">
+        <div class="card border-0 shadow-sm">
+          <div class="overflow-hidden">
+            <img src="/images/shibli.jpeg" class="img-fluid rounded hover-expand" alt="Developer 2">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Shibli Sadik Sifat</h5>
+            <p class="card-text">Maishanda</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4 text-center">
+        <div class="card border-0 shadow-sm">
+          <div class="overflow-hidden">
+            <img src="/images/jahin.jpeg" class="img-fluid rounded hover-expand" alt="Developer 3">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Fathin Noor Jahin</h5>
+            <p class="card-text">Asha chara Nesha</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4 text-center">
+        <div class="card border-0 shadow-sm">
+          <div class="overflow-hidden">
+            <img src="/images/fahim.jpeg" class="img-fluid rounded hover-expand" alt="Developer 4">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Fahim Chowdhury</h5>
+            <p class="card-text">Chut Paglu Final Boss</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- Footer -->
+<footer class="bg-success text-white mt-5">
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <h5>About NoteTaker</h5>
+        <p>Your personal note-taking companion. Organize, manage, and explore your notes effortlessly.</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="/" class="text-white text-decoration-none">Home</a></li>
+          <li><a href="/mynote" class="text-white text-decoration-none">My Notes</a></li>
+          <li><a href="/about" class="text-white text-decoration-none">About</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h5>Contact</h5>
+        <a href="mailto:sadik38003@gmail.com" class="text-white">support@notetaker.com</a>
+        <p>Phone: <a href="tel:+8801884286296" class="text-white">+880 1884 286296</a></p>
+      </div>
+    </div>
+    <div class="text-center mt-3">&copy; 2025 NoteTaker. All Rights Reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

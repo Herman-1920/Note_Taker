@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signup | NoteTaker</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+/* ----------------- Navbar Styling ----------------- */
+.navbar {
+  background-color: #198754; /* Green background same as footer */
+  border-bottom: 2px solid #145c32; /* Slightly darker green border */
+}
+.navbar-brand, .navbar-nav .nav-link {
+  color: white !important; /* White text for contrast */
+}
+.navbar-nav .nav-link.active {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #d4f0d4 !important; /* Lighter green for active link */
+}
+.navbar .btn-outline-success {
+  border: 2px solid white;
+  color: white;
+  background-color: transparent;
+}
+.navbar .btn-outline-success:hover {
+  background-color: white;
+  color: #198754;
+}
+
+/* ----------------- Form Styling ----------------- */
+.green-form input,
+.green-form textarea {
+  border: 2px solid green; /* Green border */
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+.green-form input:focus,
+.green-form textarea:focus {
+  outline: none;
+  border-color: darkgreen; /* Dark green on focus */
+}
+.green-form {
+  border: 2px solid green;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  background-color: #fff; /* White background */
+}
+
+/* Signup button styling */
+.green-btn {
+  border: 2px solid green;
+  color: green;
+  background-color: white;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.green-btn:hover {
+  background-color: green;
+  color: white;
+}
+
+/* ----------------- Page Layout ----------------- */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure footer sticks to bottom */
+  margin: 0;
+}
+main {
+  flex: 1; /* Main content grows */
+}
+
+/* ----------------- Footer Styling ----------------- */
+footer {
+  background-color: #198754;
+  color: white;
+  padding: 1.5rem 0;
+}
+footer a {
+  color: white;
+  text-decoration: none;
+}
+footer a:hover {
+  color: #d4f0d4;
+  text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+<!-- ----------------- Navbar ----------------- -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand mx-3" href="/">NoteTaker</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto d-flex flex-row">
+        <li class="nav-item mx-2"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item mx-2"><a class="nav-link" href="/mynote">Mynote</a></li>
+        <li class="nav-item mx-2"><a class="nav-link" href="/about">About</a></li>
+      </ul>
+      <div class="d-flex" id="authbutton"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<!-- ----------------- Navbar Auth Button ----------------- -->
+<script>
+// Dynamically update the navbar auth button (Login only for signup page)
+function updateNav(){
+  const authbutton = document.getElementById('authbutton');
+  authbutton.innerHTML = `<a href="/login"><button class="btn btn-outline-success mx-2" type="button">Login</button></a>`;
+}
+updateNav();
+</script>
+
+<!-- ----------------- Signup Form ----------------- -->
+<div class="container flex-grow-1">
+  <h1 class="text-center">SignUp</h1>
+  <div class="d-flex justify-content-center my-4">
+    <form class="p-4 shadow rounded green-form" style="width: 450px; height:400px">
+      <!-- Email Field -->
+      <div class="mb-3">
+        <input type="text" class="form-control" id="email" placeholder="Email">
+        <div class="form-text text-center">Email should not be VOID!</div>
+      </div>
+      <!-- Username Field -->
+      <div class="mb-3">
+        <input type="text" class="form-control" id="username" placeholder="Username">
+        <div class="form-text text-center">Enter an exciting USERNAME!</div>
+      </div>
+      <!-- Password Field -->
+      <div class="mb-3">
+        <input type="text" class="form-control" id="password" placeholder="Password">
+      </div>
+      <!-- Signup Button -->
+      <div class="d-flex justify-content-center">
+        <button type="button" class="green-btn" id="submit">Signup</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ----------------- Signup JS ----------------- -->
+<script>
+// Helper function to send POST requests
+async function postData(url, data){ 
+  const res = await fetch(url, {
+    method:'POST', 
+    headers:{'Content-Type':'application/json'}, 
+    body:JSON.stringify(data)
+  });
+  return res.json();
+}
+
+// Signup button click handler
+document.getElementById('submit').addEventListener('click', async () => {
+  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  const resp = await postData('/signup', { username, email, password });
+
+  if(resp.success){
+    alert("User created successfully! Please login to continue.");
+    // Clear form fields
+    document.getElementById("email").value="";
+    document.getElementById("username").value="";
+    document.getElementById("password").value="";
+    // Redirect to login page
+    window.location.href="/login";
+  } else {
+    alert(resp.message || "Signup failed!");
+  }
+});
+</script>
+
+<!-- ----------------- Footer ----------------- -->
+<footer class="bg-success text-white mt-5">
+  <div class="container py-4">
+    <div class="row">
+      <!-- About Section -->
+      <div class="col-md-4 mb-3">
+        <h5>About NoteTaker</h5>
+        <p>Your personal note-taking companion. Organize, manage, and explore your notes effortlessly.</p>
+      </div>
+      <!-- Quick Links -->
+      <div class="col-md-4 mb-3">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="/" class="text-white">Home</a></li>
+          <li><a href="/mynote" class="text-white">My Notes</a></li>
+          <li><a href="/about" class="text-white">About</a></li>
+        </ul>
+      </div>
+      <!-- Contact Info -->
+      <div class="col-md-4 mb-3">
+        <h5>Contact</h5>
+        <a href="mailto:sadik38003@gmail.com" class="text-white">support@notetaker.com</a>
+        <p>Phone: <a href="tel:+8801884286296" class="text-white">+880 1884 286296</a></p>     
+      </div>
+    </div>
+    <div class="text-center mt-3">&copy; 2025 NoteTaker. All Rights Reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
