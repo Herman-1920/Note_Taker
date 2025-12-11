@@ -5,104 +5,131 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home | NoteTaker</title>
 
-<!-- Bootstrap CSS -->
+<!--Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-/* ----------------- Navbar Styling ----------------- */
+/*Navbar Styling */
 .navbar {
-  background-color: #198754; /* green matching footer */
-  border-bottom: 2px solid #145c32; /* darker green border */
+    background-color: #198754;
+    border-bottom: 2px solid #145c32;
 }
+
 .navbar-brand,
 .navbar-nav .nav-link {
-  color: white !important; /* white text */
+    color: white !important;
 }
+
 .navbar-nav .nav-link.active {
-  font-weight: bold;
-  text-decoration: underline;
-  color: #d4f0d4 !important; /* lighter green for active link */
+    font-weight: bold;
+    text-decoration: underline;
+    color: #d4f0d4 !important;
 }
+
 .navbar .btn-outline-success {
-  border: 2px solid white;
-  color: white;
-  background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    background-color: transparent;
 }
+
 .navbar .btn-outline-success:hover {
-  background-color: white;
-  color: #198754;
+    background-color: white;
+    color: #198754;
 }
 
-/* ----------------- Form & Button Styling ----------------- */
-.green-form input,
-.green-form textarea {
-  border: 2px solid green;
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  width: 100%;
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050;
 }
-.green-form input:focus,
-.green-form textarea:focus {
-  outline: none;
-  border-color: darkgreen;
-}
-.green-form {
-  border: 2px solid green;
-  border-radius: 0.25rem;
-  padding: 1rem;
-  background-color: #fff;
-}
+
+/*Card & Image Styling */
 .green-btn {
-  border: 2px solid green;
-  color: green;
-  background-color: white;
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.green-btn:hover {
-  background-color: green;
-  color: white;
-}
-.green-link {
-  color: green;
-  font-weight: bold;
-  text-decoration: none;
-}
-.green-link:hover {
-  color: darkgreen;
-  text-decoration: underline;
+    border: 2px solid #198754;
+    color: #198754;
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
 }
 
-/* ----------------- Layout Styling ----------------- */
+.green-btn:hover {
+    background-color: #198754;
+    color: white;
+}
+
+.section-img {
+    width: 100%;
+    border-radius: 10px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.section-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 128, 0, 0.3);
+}
+
+/* Layout Styling  */
+:root {
+    --green: #198754;
+    --green-dark: #145c32;
+    --panel-bg: linear-gradient(180deg, #f0fff4, #ffffff);
+    --fade-bg: #f7faf7;
+    --app-bg: #f0f2f5;
+}
+
+html,
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* footer sticks at bottom */
-  margin: 0;
+    height: 100%;
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background: var(--app-bg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    padding-top: 50px;
+}
+
 main {
-  flex: 1;
+    flex: 1;
+    padding: 1.25rem 0;
+    padding-top: 70px;
 }
+
+.section {
+    padding: 50px 0;
+}
+
+/* footer styling*/
 footer {
-  background-color: #198754;
-  color: white;
-  padding: 1.5rem 0;
+    background-color: #198754;
+    color: white;
+    padding: 1.5rem 0;
 }
+
 footer a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
+
 footer a:hover {
-  color: #d4f0d4;
-  text-decoration: underline;
+    color: #d4f0d4;
+    text-decoration: underline !important;
 }
 </style>
+
 </head>
 <body>
 
-<!-- ----------------- Navbar ----------------- -->
+<!--  Navbar  -->
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand mx-3" href="/">NoteTaker</a>
@@ -118,13 +145,11 @@ footer a:hover {
         <li class="nav-item mx-2"><a class="nav-link" href="/mynote">Mynote</a></li>
         <li class="nav-item mx-2"><a class="nav-link" href="/about">About</a></li>
       </ul>
-
       <div class="d-flex" id="authbutton"></div>
     </div>
   </div>
 </nav>
 
-<!-- ----------------- Navbar Auth Button Script ----------------- -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 function updateNav() {
@@ -132,7 +157,6 @@ function updateNav() {
   const authbutton = document.getElementById('authbutton');
 
   if(user){
-    // Show welcome message and logout button if user is logged in
     authbutton.innerHTML = `
       <span class="me-2 text-white fw-semibold">Hi, ${user.username || user.email}</span>
       <button class="btn btn-outline-danger mx-2" id="logoutbtn">Logout</button>`;
@@ -141,7 +165,6 @@ function updateNav() {
       window.location.href = '/';
     });
   } else {
-    // Show login/signup buttons if no user logged in
     authbutton.innerHTML = `
       <a href="/login"><button class="btn btn-outline-success mx-2" type="button">Login</button></a>
       <a href="/signup"><button class="btn btn-outline-success mx-2" type="button">Signup</button></a>`;
@@ -150,56 +173,104 @@ function updateNav() {
 updateNav();
 </script>
 
-<!-- ----------------- Hero Sections ----------------- -->
-<div class="container my-5">
+<main class="container">
+<div class="container text-center p-4">
+  <h1>Welcome to NoteTaker</h1>
+  <p>Organize your thoughts, ideas, and tasks effortlessly.</p>
+  <p class="text-muted">Fast • Simple • Accessible Anywhere</p>
+  <div class="mb-3">
+    <a href="/signup" class="green-btn mt-2" style="width:180px;">SIGN UP NOW</a>
+  </div>
+  <img src="images/wel2.jpg" class="img-fluid rounded mt-3"
+       style="max-height:360px; object-fit:cover;">
+</div>
 
-  <!-- Section 1: Welcome -->
-  <div class="row align-items-center mb-5">
-    <div class="col-md-6">
-      <div class="card shadow p-4 green-form" style="height:250px">
-        <h3>Welcome to NoteTaker</h3>
-        <p>Your personal note-taking companion. Organize, manage, and explore your notes effortlessly.</p>
-        <div class="text-end">
-          <a href="/mynote" class="green-btn" style="width: 100px;">Try Now</a>
+<div class="row align-items-center py-5">
+
+  <div class="col-md-6 text-center mb-4 mb-md-0">
+    <img src="images/wel.png" class="img-fluid rounded"
+         style="max-height:360px; object-fit:cover;">
+  </div>
+  <div class="col-md-6">
+  <h3 class="fw-bold text-dark">Stay Productive & Share</h3>
+  <p style="text-align: justify;">
+  Stay effortlessly organized with tools that help you manage tasks, capture ideas,
+  and keep your day running smoothly. Whether you're studying, planning your day,
+  or working on a group project, everything you need is right here to keep you
+  inspired and productive. Share your notes instantly with friends, classmates, or
+  coworkers, making teamwork feel easy and natural.</p>
+  <div class="text-center text-md-start">
+    <a href="/mynote" class="green-btn mt-2" style="width:130px;">Try Now</a>
+  </div>
+</div>
+
+<h2>Features</h2>
+
+<div id="notesCarousel" class="carousel slide" data-bs-ride="carousel">
+
+  <div class="carousel-inner">
+
+    <!-- SLIDE 1 — Image RIGHT -->
+    <div class="carousel-item active">
+      <div class="row align-items-center py-5">
+        <div class="col-md-6">
+          <p style="text-align: justify;">
+            You can create and manage multiple notes on the same page,
+            and everything will stay safely saved for you.
+            Whenever you log in, your notes will be right there,
+            ready for you to view, edit, or use instantly.
+          </p>
+        </div>
+
+        <div class="col-md-6 text-center mb-4 mb-md-0">
+          <img src="images/n1.jpg" class="img-fluid rounded"
+               style="max-height:460px; object-fit:cover;">
         </div>
       </div>
     </div>
-    <div class="col-md-6 text-center">
-      <img src="hero-image1.png" alt="Hero Image" class="img-fluid rounded">
-    </div>
-  </div>
 
-  <!-- Section 2: Collaborate -->
-  <div class="row align-items-center mb-5 flex-md-row-reverse">
-    <div class="col-md-6 text-center">
-      <img src="hero-image2.png" alt="Hero Image" class="img-fluid rounded">
-    </div>
-    <div class="col-md-6">
-      <div class="card shadow p-4 green-form" style="height: 250px;">
-        <h3>Collaborate & Share</h3>
-        <p>Share your notes with friends or colleagues seamlessly and stay organized together.</p>
-        <a href="/signup" class="green-btn" style="width: 115px;">Get Started</a>
+    <!-- SLIDE 2 — Image LEFT -->
+    <div class="carousel-item">
+      <div class="row align-items-center py-5">
+        <div class="col-md-6 text-center mb-4 mb-md-0">
+          <img src="images/n2.jpg" class="img-fluid rounded "
+               style="max-height:360px; object-fit:cover;">
+        </div>
+
+        <div class="col-md-6 ">
+          <p style="text-align: justify;">
+            You can also create folders to neatly organize your personal,
+            work, academic, or other important notes.
+          </p>
+        </div>
       </div>
     </div>
+
   </div>
 
-  <!-- Section 3: Productivity -->
-  <div class="row align-items-center mb-5">
-    <div class="col-md-6">
-      <div class="card shadow p-4 green-form" style="height: 250px">
-        <h2>Stay Productive</h2>
-        <p>Set reminders, organize tasks, and never miss a deadline with NoteTaker.</p>
-        <a href="/mynote" class="green-btn" style="width:100px">Try Now</a>
-      </div>
-    </div>
-    <div class="col-md-6 text-center">
-      <img src="hero-image3.png" alt="Hero Image" class="img-fluid rounded">
-    </div>
-  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#notesCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#notesCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 
 </div>
 
-<!-- ----------------- Footer ----------------- -->
+</div>
+
+<script>
+  AOS.init({
+    duration: 800
+  });
+</script>
+
+</main>
+
+
+<!--  Footer  -->
 <footer class="bg-success text-white mt-5">
   <div class="container text-center">
     <div class="row">
@@ -213,20 +284,23 @@ updateNav();
         <h5>Quick Links</h5>
         <ul class="list-unstyled">
           <li><a href="/" class="text-white text-decoration-none">Home</a></li>
-          <li><a href="/mynote" class="text-white text-decoration-none">My Notes</a></li>
+          <li><a href="/mynote" class="text-white text-decoration-none">MyNote</a></li>
           <li><a href="/about" class="text-white text-decoration-none">About</a></li>
         </ul>
       </div>
-      <!-- Contact -->
+      <!-- Contact Info -->
       <div class="col-md-4 mb-3">
         <h5>Contact</h5>
         <a href="mailto:sadik38003@gmail.com" class="text-white">support@notetaker.com</a>
-        <p>Phone: <a href="tel:+8801884286296" class="text-white">+880 1884 286296</a></p>     
+        <p>Phone: <a href="tel:+8801884286296" class="text-white">+880 1884 286296</a></p>      
       </div>
     </div>
-    <div class="text-center mt-3">&copy; 2025 NoteTaker. All Rights Reserved.</div>
+    <div class="text-center mt-3">
+      &copy; 2025 NoteTaker. All Rights Reserved.
+    </div>
   </div>
 </footer>
+
 
 </body>
 </html>

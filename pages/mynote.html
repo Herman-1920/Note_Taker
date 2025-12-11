@@ -1,122 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My Note | NoteTaker</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-<style>
-/* Navbar */
+ <style>
+/* Navbar Styling */
 .navbar {
-  background-color: #198754;
-  border-bottom: 2px solid #145c32;
+    background-color: var(--green);
+    border-bottom: 2px solid var(--green-dark);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050; 
 }
-.navbar-brand,
+
+.navbar-brand, 
 .navbar-nav .nav-link {
-  color: white !important;
+    color: white !important;
 }
+
 .navbar-nav .nav-link.active {
-  font-weight: bold;
-  text-decoration: underline;
-  color: #d4f0d4 !important;
+    font-weight: 600;
+    text-decoration: underline;
+    color: #d4f0d4 !important;
 }
+
 .navbar .btn-outline-success {
-  border: 2px solid white;
-  color: white;
-  background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    background: transparent;
 }
+
 .navbar .btn-outline-success:hover {
-  background-color: white;
-  color: #198754;
+    background: white;
+    color: var(--green);
 }
 
-/* Cards & Notes */
-.card-title {
-  color: black;
-  cursor: pointer;
-}
-.card {
-  border: 2px solid green !important;
-  box-shadow: none !important;
-  background-color: #fff;
-}
-.card-text {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
-  padding: 0 0;
-}
-.card-text.show {
-  max-height: 200px;
-  padding: 0.5rem 0;
+/* Layout Variables */
+:root {
+    --green: #198754;
+    --green-dark: #145c32;
+    --panel-bg: linear-gradient(180deg, #f0fff4, #ffffff);
+    --fade-bg: #f7faf7; 
+    --app-bg: #f0f2f5;
 }
 
-/* Form styling */
-#title, #desc {
-  border: 2px solid green;
-  border-radius: 5px;
-  outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-#title:focus, #desc:focus {
-  border-color: darkgreen;
-  box-shadow: 0 0 5px rgba(0,128,0,0.5);
-}
-.green-outline-form {
-  border: 2px solid green;
-  border-radius: 0.5rem;
-  background-color: #fff;
-  padding: 1rem;
-}
-.green-btn {
-  border: 2px solid green;
-  color: green;
-  background-color: white;
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.green-btn:hover {
-  background-color: green;
-  color: white;
+html, body {
+    height: 100%;
 }
 
-/* Footer & layout */
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background: var(--app-bg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    padding-top: 80px;
 }
+
 main {
-  flex: 1;
+    flex: 1;
+    padding: 1.25rem 0;
+    padding-top: 70px;
 }
+
+/* Container */
+.container-centered {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* Cards Styling */
+.card {
+    border: 2px solid green !important;
+    background: white;
+    transition: box-shadow .25s ease, transform .12s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+}
+
+.card-title {
+    cursor: pointer;
+    color: black;
+}
+
+.card-text {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .28s ease, padding .28s ease;
+    padding: 0;
+}
+
+.card-text.show {
+    max-height: 200px;
+    padding: .5rem 0;
+}
+
+/* Note Cards */
+.note-card {
+    width: 300px;       
+    min-height: 180px; 
+    border: 2px solid green;
+    border-radius: 12px;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.note-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.note-card:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Notes Container */
+#notesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    max-width: 1100px;
+    padding: 1rem;
+    margin: 0 auto;
+    box-sizing: border-box; 
+}
+
+/* Folder Buttons */
+#foldersList button {
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.folder-btn {
+    background: white !important;
+    color: green !important;
+    border: 2px solid green;
+}
+
+.folder-btn.active-folder {
+    background: #198754 !important;
+    color: white !important;
+}
+
+/* Inputs */
+#title, #desc, #folderName {
+    border: 2px solid green;
+    border-radius: 6px;
+    outline: none;
+    transition: box-shadow .2s ease, border-color .2s ease;
+}
+
+#title:focus, #desc:focus, #folderName:focus {
+    box-shadow: 0 0 6px rgba(0,128,0,0.12);
+    border-color: darkgreen;
+}
+
+/* Buttons */
+.btn-green-skin {
+    background: white;
+    color: green;
+    border: 2px solid green;
+    padding: .45rem .9rem;
+    border-radius: .4rem;
+}
+
+.btn-green-skin:hover {
+    background: #198754;
+    color: white;
+}
+
+.btn-red-skin {
+    background: white;
+    color: #dc3545; /* Bootstrap danger red */
+    border: 2px solid #dc3545;
+    padding: .45rem .9rem;
+    border-radius: .4rem;
+    transition: 0.2s ease;
+}
+
+.btn-red-skin:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* Misc Utilities */
+.mt-2-sm {
+    margin-top: .5rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Guest Cards */
+.guest-cards-wrapper .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.guest-cards-wrapper .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+/* Cards Wrapper */
+.cards-wrapper {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: flex-start; /* center horizontally */
+    gap: 1rem; /* control spacing between cards */
+    width: 100%;
+    padding: 0 1rem;
+}
+
+/* Folder Card */
+.list-card {
+    background: #f0f2f5;
+    border: 2px solid green;
+    width: 100%;        /* take full width up to max */
+    max-width: 400px;   /* prevents it from being too wide */
+    box-sizing: border-box;
+}
+
+/* Fixed Note Card */
+.fixed-card {
+    background: #f0f2f5;
+    border: 2px solid green;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+}
+
+/* Footer Styling */
 footer {
-  background-color: #198754;
-  color: white;
-  padding: 1.5rem 0;
+    background-color: #198754;
+    color: white;
+    padding: 1.5rem 0;
 }
+
 footer a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
+
 footer a:hover {
-  color: #d4f0d4;
-  text-decoration: underline;
+    color: #d4f0d4;
+    text-decoration: underline !important;
 }
-</style>
+</style> 
+
+
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand mx-3" href="/">NoteTaker</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
       <ul class="navbar-nav mx-auto d-flex flex-row">
         <li class="nav-item mx-2"><a class="nav-link" href="/">Home</a></li>
@@ -128,126 +294,84 @@ footer a:hover {
   </div>
 </nav>
 
-<div class="container flex-grow-1">
-  <h1 class="text-center">My Notes</h1>
-  <div class="d-flex justify-content-center my-4">
-    <form class="green-outline-form shadow rounded" style="width:500px; height:400px">
-      <input type="text" id="title" class="form-control mb-2" placeholder="Title" style="height:50px">
-      <div id="titleHelp" class="form-text text-center">Add an exciting TITLE!</div>
-      <textarea id="desc" class="form-control mb-2" placeholder="Description" style="height:150px"></textarea>
-      <div id="deschelp" class="form-text text-center">What's in your mind?</div>
-      <div class="text-center mt-2">
-        <button type="button" class="green-btn" id="addNoteBtn">Add Note</button>
+<!-- GUEST CARDS -->
+<main id="guestHero">
+  <div class="guest-cards-wrapper container-centered d-flex flex-wrap gap-5 justify-content-center">
+    <div class="card p-3" style="width: 25rem;">
+      <img src="images/getstarted.png" class="card-img-top" alt="Card Image" style="height: 140px; object-fit: cover;">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">Excited to use Note features?</h5>
+        <a href="/login" class="btn btn-green-skin mt-auto">Get Started</a>
       </div>
-    </form>
+    </div>
+    <div class="card p-3" style="width: 25rem;">
+      <img src="images/collaborate.png" class="card-img-top" alt="Card Image" style="height: 140px; object-fit: cover;">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">Want to collaborate with us?</h5>
+        <a href="/about" class="btn btn-green-skin mt-auto">Contact Us</a>
+      </div>
+    </div>
+    <div class="card p-3" style="width: 25rem;">
+      <img src="images/signup.jpeg" class="card-img-top" alt="Card Image" style="height: 140px; object-fit: cover;">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">New Here?</h5>
+        <a href="/signup" class="btn btn-green-skin mt-auto">Create New Account</a>
+      </div>
+    </div>
   </div>
-  <div id="notesContainer" class="row justify-content-center"></div>
-</div>
+</main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-// Navbar
-function updateNav() {
-  const user = JSON.parse(localStorage.getItem('user'));
-  const authbutton = document.getElementById('authbutton');
-  if (user) {
-    authbutton.innerHTML = `<span class="me-2 text-white fw-semibold">Hi, ${user.username || user.email}</span>
-                            <button class="btn btn-outline-danger mx-2" id="logoutbtn">Logout</button>`;
-    document.getElementById('logoutbtn').addEventListener('click', () => {
-      localStorage.removeItem('user');
-      window.location.href = '/';
-    });
-  } else {
-    authbutton.innerHTML = `<a href="/login"><button class="btn btn-outline-success mx-2">Login</button></a>
-                            <a href="/signup"><button class="btn btn-outline-success mx-2">Signup</button></a>`;
-  }
-}
-updateNav();
+<!-- MAIN (folders + notes) -->
+<main id="loggedInMain" class="container-centered hidden" aria-hidden="true">
+  <br>
+  <h3 style="text-align: center;">My Notes</h3>
+  <br>
 
-// Helper
-async function postData(url, data) {
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-  return res.json();
-}
-function getCurrentUser() {
-  const user = JSON.parse(localStorage.getItem('user'));
-  return user && user.email ? user : null;
-}
+  <!-- Wrap both cards inside the same wrapper -->
+  <div class="cards-wrapper">
+    
+    <!-- Folder Card -->
+    <div class="card list-card p-3">
+      <h5 class="mb-2 text-center">Folders</h5>
+      <div id="foldersList" class="d-flex flex-column gap-2 mb-2"></div>
+      <div class="d-flex gap-2">
+        <input id="folderName" class="form-control" placeholder="New Folder" />
+        <button id="addFolderBtn" class="btn btn-green-skin">
+          <i class="bi bi-folder-plus"></i>
+        </button>
+      </div>
+    </div>
 
-// Load notes
-async function loadNotes() {
-  const user = getCurrentUser();
-  if (!user) return;
-  const resp = await postData('/getnote', { email: user.email });
-  if (resp.success) {
-    const container = document.getElementById('notesContainer');
-    container.innerHTML = '';
-    resp.notes.forEach(note => {
-      const div = document.createElement('div');
-      div.className = 'col-12 col-sm-6 col-md-4 mb-3 d-flex justify-content-center';
-      div.innerHTML = `
-      <div class="card shadow rounded" style="width:400px;">
-        <div class="card-body">
-          <h5 class="card-title">${note.title}</h5>
-          <p class="card-text">${note.description}</p>
-        </div>
-      </div>`;
-      container.appendChild(div);
+    <!-- Note Card -->
+    <div class="card p-4 fixed-card" style="border-radius: 12px; transition: 0.3s ease; border: 1px solid #ddd;">
+      <h5 class="mb-4 text-center">Add / Edit Note</h5>
 
-      const titleEl = div.querySelector('.card-title');
-      const descEl = div.querySelector('.card-text');
-      titleEl.addEventListener('click', () => {
-        descEl.classList.toggle('show');
-      });
-    });
-  }
-}
+      <div class="mb-3">
+        <input id="title" class="form-control mb-2" placeholder="Title" />
+        <textarea id="desc" class="form-control" rows="4" placeholder="Description"></textarea>
+      </div>
 
-// Add note
-document.getElementById('addNoteBtn').addEventListener('click', async () => {
-  const user = getCurrentUser();
-  if (!user) {
-    alert("Please login first to continue!");
-    localStorage.setItem('redirectAfterLogin', window.location.pathname);
-    localStorage.setItem('tempTitle', document.getElementById('title').value);
-    localStorage.setItem('tempDesc', document.getElementById('desc').value);
-    window.location.href = "/login";
-    return;
-  }
-  const title = document.getElementById('title').value.trim();
-  const desc = document.getElementById('desc').value.trim();
-  if (!title || !desc) { alert("Fill both title and description!"); return; }
+      <!-- Centered Save Button -->
+      <div class="d-flex justify-content-center mt-2">
+        <button id="addNoteBtn" class="btn btn-green-skin d-flex align-items-center gap-2 px-4 py-2">
+          <i class="bi bi-file-earmark-check" style="font-size: 1.2rem;"></i>
+          Save Note
+        </button>
+      </div>
+    </div>
 
-  const resp = await postData('/addnote', { email: user.email, title, description: desc });
-  if (resp.success) {
-    document.getElementById('title').value = '';
-    document.getElementById('desc').value = '';
-    loadNotes();
-  } else {
-    alert("Failed to add note: " + (resp.message || "Unknown error"));
-  }
-});
+  </div>
 
-// Restore temp note after login
-window.onload = () => {
-  const user = getCurrentUser();
-  if (!user) return;
-  const tempTitle = localStorage.getItem('tempTitle') || '';
-  const tempDesc = localStorage.getItem('tempDesc') || '';
-  document.getElementById('title').value = tempTitle;
-  document.getElementById('desc').value = tempDesc;
-  localStorage.removeItem('tempTitle');
-  localStorage.removeItem('tempDesc');
-  loadNotes();
-};
-</script>
+<div id="notesContainer"></div>
 
+
+
+  </div>
+</main>
+
+<!-- FOOTER -->
 <footer class="bg-success text-white mt-5">
-  <div class="container py-4">
+  <div class="container text-center">
     <div class="row">
       <div class="col-md-4 mb-3">
         <h5>About NoteTaker</h5>
@@ -256,20 +380,282 @@ window.onload = () => {
       <div class="col-md-4 mb-3">
         <h5>Quick Links</h5>
         <ul class="list-unstyled">
-          <li><a href="/" class="text-white">Home</a></li>
-          <li><a href="/mynote" class="text-white">My Notes</a></li>
-          <li><a href="/about" class="text-white">About</a></li>
+          <li><a href="/" class="text-white text-decoration-none">Home</a></li>
+          <li><a href="/mynote" class="text-white text-decoration-none">MyNote</a></li>
+          <li><a href="/about" class="text-white text-decoration-none">About</a></li>
         </ul>
       </div>
       <div class="col-md-4 mb-3">
         <h5>Contact</h5>
         <a href="mailto:sadik38003@gmail.com" class="text-white">support@notetaker.com</a>
-        <p>Phone: <a href="tel:+8801884286296" class="text-white">+880 1884 286296</a></p>     
+        <p>Phone: <a href="tel:+8801884286296" class="text-white">+880 1884 286296</a></p>      
       </div>
     </div>
-    <div class="text-center mt-3">&copy; 2025 NoteTaker. All Rights Reserved.</div>
+    <div class="text-center mt-3">
+      &copy; 2025 NoteTaker. All Rights Reserved.
+    </div>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+async function getCurrentUser() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  return user && user.email ? user : null;
+}
+
+function escapeHtml(str = '') {
+  return String(str)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+async function updateNavAndUI() {
+  const user = await getCurrentUser();
+  const authbutton = document.getElementById('authbutton');
+  const loggedInMain = document.getElementById('loggedInMain');
+  const guestHero = document.getElementById('guestHero');
+
+  if (user) {
+    authbutton.innerHTML = `
+      <span class="me-2 text-white fw-semibold">Hi, ${user.username || user.email}</span>
+      <button class="btn btn-outline-danger mx-2" id="logoutbtn">Logout</button>
+    `;
+    document.getElementById('logoutbtn').addEventListener('click', () => {
+      localStorage.removeItem('user');
+      updateNavAndUI();
+    });
+    loggedInMain.classList.remove('hidden');
+    loggedInMain.setAttribute('aria-hidden', 'false');
+    guestHero.classList.add('hidden');
+
+    await loadFolders();
+  } else {
+    authbutton.innerHTML = `
+      <a href="/login"><button class="btn btn-outline-success mx-2">Login</button></a>
+      <a href="/signup"><button class="btn btn-outline-success mx-2">Signup</button></a>
+    `;
+    loggedInMain.classList.add('hidden');
+    loggedInMain.setAttribute('aria-hidden', 'true');
+    guestHero.classList.remove('hidden');
+  }
+}
+
+let selectedFolderIndex = null;
+
+//  Folders 
+async function loadFolders() {
+  const user = await getCurrentUser();
+  if (!user) return;
+
+  try {
+    const res = await fetch('/getfolders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: user.email })
+    });
+    const data = await res.json();
+    const folders = data.success ? data.folders : [];
+
+    const list = document.getElementById('foldersList');
+    list.innerHTML = '';
+
+    folders.forEach((folderName, i) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'd-flex align-items-center gap-2';
+
+      const btn = document.createElement('button');
+      btn.className = 'btn folder-btn flex-grow-1';
+      btn.textContent = folderName;
+      btn.onclick = () => { selectedFolderIndex = i; highlightFolder(); renderNotes(); };
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'btn btn-red-skin d-flex align-items-center justify-content-center';
+      delBtn.style.width = '35px';
+      delBtn.style.height = '35px';
+      delBtn.style.padding = '0';
+      delBtn.style.borderRadius = '50%';
+      delBtn.title = 'Delete folder';
+      delBtn.innerHTML = '<i class="bi bi-folder-minus"></i>';
+
+      delBtn.onclick = async (e) => {
+        e.stopPropagation();
+        if (!confirm(`Delete folder "${folderName}"?`)) return;
+
+        try {
+          const res = await fetch('/deletefolder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: user.email, folder: folderName })
+          });
+          const data = await res.json();
+          if (!data.success) return alert('Failed to delete folder!');
+
+          document.getElementById('notesContainer').innerHTML='';
+
+          selectedFolderIndex = null;
+          await loadFolders();
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
+      wrapper.appendChild(btn);
+      wrapper.appendChild(delBtn);
+      list.appendChild(wrapper);
+    });
+
+    if (folders.length > 0 && (selectedFolderIndex === null || selectedFolderIndex >= folders.length)) {
+      selectedFolderIndex = 0;
+    }
+
+    highlightFolder();
+    renderNotes();
+  } catch (err) {
+    console.error('Error loading folders:', err);
+  }
+}
+
+function highlightFolder() {
+  const buttons = document.querySelectorAll('#foldersList .folder-btn');
+  buttons.forEach((btn, i) => {
+    if (i === selectedFolderIndex) {
+      btn.classList.add('active-folder');
+      btn.classList.remove('btn-outline-success');
+    } else {
+      btn.classList.remove('active-folder');
+      btn.classList.add('btn-outline-success');
+    }
+  });
+}
+
+document.getElementById('addFolderBtn').addEventListener('click', async () => {
+  const user = await getCurrentUser();
+  if (!user) { alert('Login first!'); return; }
+
+  const name = document.getElementById('folderName').value.trim();
+  if (!name) { alert('Enter folder name!'); return; }
+
+  await fetch('/addfolder', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: user.email, folder: name })
+  });
+
+  document.getElementById('folderName').value = '';
+  await loadFolders();
+});
+
+//  Notes 
+async function renderNotes() {
+  const user = await getCurrentUser();
+  if (!user) return;
+
+  const folderName = document.querySelector('#foldersList .active-folder')?.textContent;
+  if (!folderName) return;
+
+  try {
+    const res = await fetch('/getnote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: user.email })
+    });
+    const data = await res.json();
+    const notes = data.success ? data.notes.filter(n => n.folder === folderName) : [];
+
+    const container = document.getElementById('notesContainer');
+    container.innerHTML = '';
+
+    if (!notes.length) {
+      container.innerHTML = `<div class="col-12"><div class="alert alert-light">No notes yet in this folder.</div></div>`;
+      return;
+    }
+
+    notes.forEach((note) => {
+      const col = document.createElement('div');
+     
+      col.innerHTML = `
+        <div class="note-card p-3" data-id="${note._id}">
+          <h5 class="card-title">${escapeHtml(note.title)}</h5>
+          <p class="card-text">${escapeHtml(note.description)}</p>
+          <div class="d-flex flex-wrap justify-content-end gap-2 mt-2">
+            <button class="btn btn-green-skin editBtn" title="Edit">
+                  <i class="bi bi-pencil-square"></i>
+                  Edit
+              </button>
+            <button class="btn btn-red-skin deleteBtn" title="Delete">
+              <i class="bi bi-archive"></i>
+              Delete
+              </button>
+          </div>
+        </div>
+      `;
+      container.appendChild(col);
+
+      const titleEl = col.querySelector('.card-title');
+      const descEl = col.querySelector('.card-text');
+      titleEl.addEventListener('click', () => descEl.classList.toggle('show'));
+
+      col.querySelector('.editBtn').addEventListener('click', () => {
+        document.getElementById('title').value = note.title;
+        document.getElementById('desc').value = note.description;
+        document.getElementById('addNoteBtn').dataset.editId = note._id;
+        window.scrollTo({ top: document.getElementById('loggedInMain').offsetTop - 20, behavior: 'smooth' });
+      });
+
+      col.querySelector('.deleteBtn').addEventListener('click', async () => {
+        if (!confirm('Delete this note?')) return;
+        await fetch('/deletenote', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: note._id })
+        });
+        renderNotes();
+      });
+    });
+  } catch (err) {
+    console.error('Error fetching notes:', err);
+  }
+}
+
+document.getElementById('addNoteBtn').addEventListener('click', async () => {
+  const user = await getCurrentUser();
+  if (!user) { alert('Please login first!'); window.location.href = '/login'; return; }
+
+  const title = document.getElementById('title').value.trim();
+  const desc  = document.getElementById('desc').value.trim();
+  const folderName = document.querySelector('#foldersList .active-folder')?.textContent;
+
+  if (!title || !folderName) return alert('Title and folder required!');
+
+  const editId = document.getElementById('addNoteBtn').dataset.editId;
+  if (editId) {
+    await fetch('/editnote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: editId, title, description: desc, folder: folderName })
+    });
+    delete document.getElementById('addNoteBtn').dataset.editId;
+  } else {
+    await fetch('/addnote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: user.email, username: user.username, title, description: desc, folder: folderName })
+    });
+  }
+
+  document.getElementById('title').value = '';
+  document.getElementById('desc').value = '';
+  renderNotes();
+});
+
+updateNavAndUI();
+</script>
+
 
 </body>
 </html>

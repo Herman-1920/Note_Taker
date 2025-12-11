@@ -9,103 +9,142 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-/* ----------------- Navbar Styling ----------------- */
+/* Navbar Styling */
 .navbar {
-  background-color: #198754; /* Same green as footer */
-  border-bottom: 2px solid #145c32; /* Slightly darker border */
-}
-.navbar-brand,
-.navbar-nav .nav-link {
-  color: white !important; /* White text */
-}
-.navbar-nav .nav-link.active {
-  font-weight: bold;
-  text-decoration: underline;
-  color: #d4f0d4 !important; /* Lighter green for active link */
-}
-.navbar .btn-outline-success {
-  border: 2px solid white;
-  color: white;
-  background-color: transparent;
-}
-.navbar .btn-outline-success:hover {
-  background-color: white;
-  color: #198754;
+    background-color: #198754;
+    border-bottom: 2px solid #145c32;
 }
 
-/* ----------------- Form & Button Styling ----------------- */
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: white !important;
+}
+
+.navbar-nav .nav-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #d4f0d4 !important;
+}
+
+.navbar .btn-outline-success {
+    border: 2px solid white;
+    color: white;
+    background-color: transparent;
+}
+
+.navbar .btn-outline-success:hover {
+    background-color: white;
+    color: #198754;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050;
+}
+
+/* Form & Button Styling */
 .green-form input,
 .green-form textarea {
-  border: 2px solid green;
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  width: 100%;
+    border: 2px solid green;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    width: 100%;
 }
+
 .green-form input:focus,
 .green-form textarea:focus {
-  outline: none;
-  border-color: darkgreen;
+    outline: none;
+    border-color: darkgreen;
 }
 
 .green-form {
-  border: 2px solid green;
-  border-radius: 0.25rem;
-  padding: 1rem;
-  background-color: #fff;
-  box-shadow: none;
+    border: 2px solid green;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    background-color: #f0f2f5;
+    box-shadow: none;
 }
 
 .green-btn {
-  border: 2px solid green;
-  color: green;
-  background-color: white;
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    border: 2px solid green;
+    color: green;
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
+
 .green-btn:hover {
-  background-color: green;
-  color: white;
+    background-color: #198754;
+    color: white;
 }
 
 /* Links inside forms */
 .green-link {
-  color: green;
-  font-weight: bold;
-  text-decoration: none;
+    color: #198754;
+    font-weight: bold;
+    text-decoration: none;
 }
+
 .green-link:hover {
-  text-decoration: underline;
-  color: darkgreen;
+    text-decoration: underline;
+    color: #198754;
 }
 
-/* ----------------- Layout Styling ----------------- */
+/* Layout Styling */
+:root {
+    --green: #198754;
+    --green-dark: #145c32;
+    --panel-bg: linear-gradient(180deg, #f0fff4, #ffffff);
+    --fade-bg: #f7faf7;
+    --app-bg: #f0f2f5;
+}
+
+html,
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Footer sticks to bottom */
-  margin: 0;
-}
-main {
-  flex: 1;
+    height: 100%;
 }
 
-/* Footer styling */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background: var(--app-bg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    padding-top: 80px;
+}
+
+main {
+    flex: 1;
+    padding: 1.25rem 0;
+    padding-top: 70px;
+}
+
+/* Footer Styling */
 footer {
-  background-color: #198754;
-  color: white;
-  padding: 1.5rem 0;
+    background-color: #198754;
+    color: white;
+    padding: 1.5rem 0;
 }
+
 footer a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
+
 footer a:hover {
-  color: #d4f0d4;
-  text-decoration: underline;
+    color: #d4f0d4;
+    text-decoration: underline !important;
 }
-</style>
+</style> 
+
+
+
 </head>
 
 <body>
@@ -133,7 +172,7 @@ footer a:hover {
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- ----------------- Navbar Auth Button ----------------- -->
+<!--  Navbar Auth Button  -->
 <script>
 function updateNav(){
   const user = JSON.parse(localStorage.getItem('user'));
@@ -146,8 +185,9 @@ function updateNav(){
 updateNav();
 </script>
 
-<!-- ----------------- Login Form ----------------- -->
+<!--  Login Form  -->
 <div class="container flex-grow-1">
+
   <h1 class="text-center">Login</h1>
   <div class="d-flex justify-content-center">
     <form class="shadow rounded green-form" style="width: 400px; height: 280px">
@@ -172,7 +212,7 @@ updateNav();
   </div>
 </div>
 
-<!-- ----------------- Login JS ----------------- -->
+<!-- Login JS -->
 <script>
 async function postData(url, data){ 
   const res = await fetch(url, {
@@ -193,17 +233,14 @@ document.getElementById('submit').addEventListener('click', async () => {
     alert("You are in!");
     localStorage.setItem('user', JSON.stringify({ email: resp.user.email, username: resp.user.username }));
 
-    // Redirect user, restore draft note if exists
-    const redirect = localStorage.getItem('redirectAfterLogin') || '/mynote';
-    localStorage.removeItem('redirectAfterLogin');
-    window.location.href = redirect;
+    window.location.href = '/mynote';
   } else {
     alert(resp.message || "Login failed!");
   }
 });
 </script>
 
-<!-- ----------------- Footer ----------------- -->
+<!--  Footer -->
 <footer class="bg-success text-white mt-5">
   <div class="container text-center">
     <div class="row">
@@ -217,7 +254,7 @@ document.getElementById('submit').addEventListener('click', async () => {
         <h5>Quick Links</h5>
         <ul class="list-unstyled">
           <li><a href="/" class="text-white text-decoration-none">Home</a></li>
-          <li><a href="/mynote" class="text-white text-decoration-none">My Notes</a></li>
+          <li><a href="/mynote" class="text-white text-decoration-none">MyNote</a></li>
           <li><a href="/about" class="text-white text-decoration-none">About</a></li>
         </ul>
       </div>
