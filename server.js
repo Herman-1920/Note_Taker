@@ -12,9 +12,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 //  Middleware
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"))); //makes the public folder inside 
+// the project accessible to the browser
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));//parse data 
 
 // Database Connection 
 mongoose.connect(process.env.MONGODB_URI)
@@ -31,11 +32,11 @@ app.get("/signup", (req, res) => res.sendFile("pages/signup.html", { root: __dir
 //  Signup 
 app.post("/signup", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password } = req.body;   
     if (!username || !email || !password)
       return res.status(400).json({ success: false, message: "All fields required" });
 
-    const cleanEmail = email.trim();
+    const cleanEmail = email.trim();    
     if (!validator.isEmail(cleanEmail))
       return res.status(400).json({ success: false, message: "Invalid email format!" });
 

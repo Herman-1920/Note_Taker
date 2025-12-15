@@ -401,10 +401,9 @@ footer a:hover {
 
 <script>
 async function getCurrentUser() {
-  const user = JSON.parse(localStorage.getItem('user'));
-  return user && user.email ? user : null;
+  const user = JSON.parse(localStorage.getItem('user')); // user object when logged in
+  return user && user.email ? user : null; 
 }
-
 function escapeHtml(str = '') {
   return String(str)
     .replaceAll('&', '&amp;')
@@ -413,7 +412,6 @@ function escapeHtml(str = '') {
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
 }
-
 async function updateNavAndUI() {
   const user = await getCurrentUser();
   const authbutton = document.getElementById('authbutton');
@@ -465,7 +463,7 @@ async function loadFolders() {
     list.innerHTML = '';
 
     folders.forEach((folderName, i) => {
-      const wrapper = document.createElement('div');
+      const wrapper = document.createElement('div');     
       wrapper.className = 'd-flex align-items-center gap-2';
 
       const btn = document.createElement('button');
@@ -533,6 +531,7 @@ function highlightFolder() {
   });
 }
 
+// adding new folder
 document.getElementById('addFolderBtn').addEventListener('click', async () => {
   const user = await getCurrentUser();
   if (!user) { alert('Login first!'); return; }
@@ -550,7 +549,7 @@ document.getElementById('addFolderBtn').addEventListener('click', async () => {
   await loadFolders();
 });
 
-//  Notes 
+//  getting Notes 
 async function renderNotes() {
   const user = await getCurrentUser();
   if (!user) return;
@@ -596,6 +595,7 @@ async function renderNotes() {
       `;
       container.appendChild(col);
 
+      // edit note
       const titleEl = col.querySelector('.card-title');
       const descEl = col.querySelector('.card-text');
       titleEl.addEventListener('click', () => descEl.classList.toggle('show'));
@@ -607,6 +607,7 @@ async function renderNotes() {
         window.scrollTo({ top: document.getElementById('loggedInMain').offsetTop - 20, behavior: 'smooth' });
       });
 
+      // delete note
       col.querySelector('.deleteBtn').addEventListener('click', async () => {
         if (!confirm('Delete this note?')) return;
         await fetch('/deletenote', {
@@ -622,6 +623,8 @@ async function renderNotes() {
   }
 }
 
+
+// edit note
 document.getElementById('addNoteBtn').addEventListener('click', async () => {
   const user = await getCurrentUser();
   if (!user) { alert('Please login first!'); window.location.href = '/login'; return; }
